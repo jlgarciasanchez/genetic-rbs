@@ -14,7 +14,7 @@ public class PrincipalJess {
         Rete jess = new Rete();
         
         try {
-        	genetic2(jess);
+        	adjacencyRepresentation(jess);
             // Reset ¡Muy importante!
         	jess.reset();
             // Ejecutamos el motor
@@ -70,5 +70,16 @@ public class PrincipalJess {
     	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic2/TransporteLineal-Genetic2-RealizarMutacion.clp");
     	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic2/TransporteLineal-Genetic2-Reemplazo.clp");
     	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic2/TransporteLineal-Genetic2-EliminarPadres.clp");
+    }
+    
+    public static void adjacencyRepresentation(Rete jess) throws JessException{
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Principal.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Datos.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Modulos.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Inicializacion.clp");
+    	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-GenerarLista.clp");
+    	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-DesordenarLista.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-GenerarListaAdyacencias.clp");
+
     }
 }
