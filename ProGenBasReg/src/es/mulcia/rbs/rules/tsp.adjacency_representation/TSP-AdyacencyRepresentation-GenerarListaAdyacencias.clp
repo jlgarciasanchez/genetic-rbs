@@ -37,7 +37,7 @@
          (retract ?list)
          (modify ?temp (datos $?datos ?i 0))
          (assert (iter (n 1)))
-         (assert (lista (id ?id)(estado ordenada)(datos 0 ?j)))
+         (assert (lista (id ?id)(estado ordenada)(datos / 0 ?j)))
 )
 
 (defrule GenerarListaAdyacencias::Ordenar
