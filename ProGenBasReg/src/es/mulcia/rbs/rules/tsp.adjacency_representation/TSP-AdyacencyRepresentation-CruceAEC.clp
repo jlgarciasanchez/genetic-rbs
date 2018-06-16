@@ -1,4 +1,4 @@
-; TSP-AdyacencyRepresentation-CruceADC.clp
+; TSP-AdyacencyRepresentation-CruceAEC.clp
 ; Problema del Viajante
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
@@ -8,13 +8,13 @@
 ;============================================================================
 
 ; Plantilla que se utiliza para almacenar los datos de un iterador.
-(deftemplate CruceADC::iter
+(deftemplate CruceAEC::iter
         (slot n)
 )
 
 ;============================================================================
 
-(defrule CruceADC::Inicio
+(defrule CruceAEC::Inicio
         (not (lista (estado hijo-actual)))
         ?ciudades <- (lista (estado ciudades))
         =>
@@ -23,7 +23,7 @@
         (assert (iter (n 0)))
 )
 
-(defrule CruceADC::Dupla-par
+(defrule CruceAEC::Dupla-par
         (not (dupla $?))
         ?iter <- (iter (n ?i))
         ?padrePar <- (lista (estado padre-par)(datos $? / ?i ?j $?))
@@ -33,7 +33,7 @@
         (modify ?iter (n (+ ?i 1)))
 )
 
-(defrule CruceADC::Dupla-impar
+(defrule CruceAEC::Dupla-impar
         (not (dupla $?))
         ?iter <- (iter (n ?i))
         ?padreImpar <- (lista (estado padre-impar)(datos $? / ?i ?j $?))
@@ -43,7 +43,7 @@
         (modify ?iter (n (+ ?i 1)))
 )
 
-(defrule CruceADC::Insertar-elemento
+(defrule CruceAEC::Insertar-elemento
         ?dupla<-(dupla ?i ?j)
         ?hijo <- (lista (estado hijo-actual)(datos $?datos))
         ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
@@ -54,7 +54,7 @@
         (retract ?dupla)
 )
 
-(defrule CruceADC::Insertar-elemento-aleatorio
+(defrule CruceAEC::Insertar-elemento-aleatorio
         ?dupla<-(dupla ?i ?j)
         ?hijo <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?der2))
         ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
@@ -65,7 +65,7 @@
         (retract ?dupla)
 )
 
-(defrule CruceADC::Romper-ciclo
+(defrule CruceAEC::Romper-ciclo
         (not (dupla ? ?))
         (p ?p)
         ?iter <- (iter (n ?i))

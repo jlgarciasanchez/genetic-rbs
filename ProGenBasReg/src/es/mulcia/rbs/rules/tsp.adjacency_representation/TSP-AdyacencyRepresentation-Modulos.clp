@@ -23,5 +23,5 @@
 ;TSP
 
 (defmodule GenerarListaAdyacencias)
-(defmodule CruceADC)
+(defmodule CruceAEC)
 (defmodule RepararCiclos)
