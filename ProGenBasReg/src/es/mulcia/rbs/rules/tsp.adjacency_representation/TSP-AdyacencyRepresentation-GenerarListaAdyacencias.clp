@@ -14,7 +14,7 @@
 
 ;============================================================================
 
-; Regla que fija como mejor solución una lista vacía con esfuerzo -1 y llama a GenerarLista.
+; Regla que modifica la lista actual para comience en la ciudad 0 y crea una lista temporal.
 (defrule GenerarListaAdyacencias::Inicio
         ?list <- (lista (id ?id)(estado actual)(datos $?izq 0 $?der))
         =>
@@ -22,6 +22,7 @@
         (assert (lista (id ?id)(estado temp)))
 )
 
+; Regla que va añadiendo a la lista temporal las duplas i j en el orden en el que se recorren.
 (defrule GenerarListaAdyacencias::Rellenar-lista-adyacencia
          ?list <- (lista (id ?id)(estado actual)(datos ?i ?j $?rest))
          ?temp <- (lista (id ?id)(estado temp)(datos $?datos))
@@ -30,6 +31,8 @@
          (modify ?temp (datos $?datos ?i ?j /))
 )
 
+; Regla que añade el último elemento i 0 a la lista temporal e
+; inicializa la lista ordenada con 0 j
 (defrule GenerarListaAdyacencias::Anadir-ultimo
          ?list <- (lista (id ?id)(estado actual)(datos ?i))
          ?temp <- (lista (id ?id)(estado temp)(datos 0 ?j $?datos))
@@ -40,6 +43,8 @@
          (assert (lista (id ?id)(estado ordenada)(datos / 0 ?j)))
 )
 
+; Lista que va añadiendo a la lista ordenada los elementos del a lista temporal
+; en orden natural.
 (defrule GenerarListaAdyacencias::Ordenar
         ?iter <- (iter (n ?it))
         ?temp <- (lista (estado temp)(datos $?izq / ?it ?j $?der))

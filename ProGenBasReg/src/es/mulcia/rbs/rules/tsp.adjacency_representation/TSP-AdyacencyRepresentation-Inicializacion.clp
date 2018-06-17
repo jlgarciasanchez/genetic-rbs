@@ -29,10 +29,11 @@
         (focus DesordenarLista)
 )
 
+; Regla que marca una lista como actual e invoca al módulo GenerarListaAdyacencias
+; para convertir la lista en la representación por adyacencias.
 (defrule Inicializacion::Generar-lista-adyacencias
         ?lista <- (lista (estado pendiente))
         =>
         (modify ?lista (estado actual))
-        (duplicate ?lista (estado jejesaludos))
         (focus GenerarListaAdyacencias)
 )

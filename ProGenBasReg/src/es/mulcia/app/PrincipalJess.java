@@ -83,8 +83,8 @@ public class PrincipalJess {
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-GenerarListaAdyacencias.clp");
 */
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Prueba.clp");
-    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-ElementoRepetido.clp");
-    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-CruceAEC.clp");
+    	//jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-ElementoRepetido.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-CruceSCC.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-RepararCiclos.clp");
     }
 }

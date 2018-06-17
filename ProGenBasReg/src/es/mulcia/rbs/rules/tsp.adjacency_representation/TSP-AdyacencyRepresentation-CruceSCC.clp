@@ -1,4 +1,4 @@
-; TSP-AdyacencyRepresentation-CruceAEC.clp
+; TSP-AdyacencyRepresentation-CruceSCC.clp
 ; Problema del Viajante
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
@@ -8,49 +8,54 @@
 ;============================================================================
 
 ; Plantilla que se utiliza para almacenar los datos de un iterador.
-(deftemplate CruceAEC::iter
+(deftemplate CruceSCC::iter
         (slot n)
 )
 
 ;============================================================================
 
-; Regla que crea una lista vacía para el hijo-actual, inicializa el iterador y
-; crea una copia de la lista de ciudades a visitar.
-(defrule CruceAEC::Inicio
+; Regla que crea una lista vacía para el hijo-actual, inicializa el iterador,
+; crea una copia de la lista de ciudades a visitar y inicializa el tamaño de los
+; trozos con un valor aleatorio entre 1 y p/2.
+(defrule CruceSCC::Inicio
+        (p ?p)
         (not (lista (estado hijo-actual)))
         ?ciudades <- (lista (estado ciudades))
         =>
         (duplicate ?ciudades (estado ciudades-actual))
         (assert (lista (estado hijo-actual)))
+        (assert (tamanyo-trozos (+ (mod (random) (/ ?p 2)) 1)))
         (assert (iter (n 0)))
 )
 
-; Regla que se dispara cuando el elemento ocupa una posición par de la lista.
+; Regla que se dispara cuando el elemento pertenece a un trozo par de la lista.
 ; Se crea la dupla i j y se actualiza el iterador.
-(defrule CruceAEC::Dupla-par
+(defrule CruceSCC::Dupla-par
         (not (dupla $?))
         ?iter <- (iter (n ?i))
+        (tamanyo-trozos ?tt)
         ?padrePar <- (lista (estado padre-par)(datos $? / ?i ?j $?))
-        (test (= (mod ?i 2) 0))
+        (test (= (mod (div ?i ?tt) 2) 0))
         =>
         (assert (dupla ?i ?j))
         (modify ?iter (n (+ ?i 1)))
 )
 
-; Regla que se dispara cuando el elemento ocupa una posición impar de la lista.
+; Regla que se dispara cuando el elemento pertenece a un trozo impar de la lista.
 ; Se crea la dupla i j y se actualiza el iterador.
-(defrule CruceAEC::Dupla-impar
+(defrule CruceSCC::Dupla-impar
         (not (dupla $?))
         ?iter <- (iter (n ?i))
+        (tamanyo-trozos ?tt)
         ?padreImpar <- (lista (estado padre-impar)(datos $? / ?i ?j $?))
-        (test (= (mod ?i 2) 1))
+        (test (= (mod (div ?i ?tt) 2) 1))
         =>
         (assert (dupla ?i ?j))
         (modify ?iter (n (+ ?i 1)))
 )
 
 ; Regla que se dispara si el elemento j no ha sido visitado. Añade la dupla i j a la lista.
-(defrule CruceAEC::Insertar-elemento
+(defrule CruceSCC::Insertar-elemento
         ?dupla<-(dupla ?i ?j)
         ?hijo <- (lista (estado hijo-actual)(datos $?datos))
         ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
@@ -63,7 +68,7 @@
 
 ; Regla que se dispara si el elemento j ha sido visitado. 
 ; Añade en la posición i una ciudad aleatoria sin visitar.
-(defrule CruceAEC::Insertar-elemento-aleatorio
+(defrule CruceSCC::Insertar-elemento-aleatorio
         ?dupla<-(dupla ?i ?j)
         ?hijo <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?der2))
         ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
@@ -75,7 +80,7 @@
 )
 
 ; Una vez se hayan visitado todas las ciudades se llama al módulo RepararCiclos para romper posibles ciclos.
-(defrule CruceAEC::Romper-ciclo
+(defrule CruceSCC::Romper-ciclo
         (not (dupla ? ?))
         (p ?p)
         ?iter <- (iter (n ?i))

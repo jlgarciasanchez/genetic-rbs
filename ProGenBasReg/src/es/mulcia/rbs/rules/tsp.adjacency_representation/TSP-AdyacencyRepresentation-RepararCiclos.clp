@@ -14,6 +14,8 @@
 
 ;============================================================================
 
+; Regla que inicializa la ruta en la ciudad 0 
+; y crea una copia de la lista con las ciudades a vistiar.
 (defrule RepararCiclos::Inicio
        (not (ruta))
        ?ciudades <- (lista (estado ciudades))
@@ -22,6 +24,8 @@
        (assert (ruta (ciudades 0)))
 )
 
+; Regla que comprueba que añade el elemento actual a la ruta del viajante
+; si no se produce un ciclo. (Volviendo a la posición inicial antes de tiempo)
 (defrule RepararCiclos::Add-ciudad
         (lista (estado hijo-actual)(datos $? / ?i ?j $?))
         ?ruta <- (ruta (ciudades $?otras ?last))
@@ -34,6 +38,8 @@
         (modify ?ciudades (datos $?izq $?der))
 )
 
+; Regla que se dispara cuando se produce un ciclo, se intercambia la ciudad actual
+; por una ciudad sin visitar a la izquierda de la actual y se añade a la ruta.
 (defrule RepararCiclos::Romper-ciclo-izquierda
         ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?centro / ?i ?j $?der2))
         ?ruta <- (ruta (ciudades $?otras ?last))
@@ -47,6 +53,8 @@
         (modify ?ciudades (datos $?izq $?der))
 )
 
+; Regla que se dispara cuando se produce un ciclo, se intercambia la ciudad actual
+; por una ciudad sin visitar a la derecha de la actual y se añade a la ruta.
 (defrule RepararCiclos::Romper-ciclo-derecha
         ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i ?j $?centro / ?i2 ?j2 $?der2))
         ?ruta <- (ruta (ciudades $?otras ?last))
@@ -60,6 +68,8 @@
         (modify ?ciudades (datos $?izq $?der))
 )
 
+; Regla que se dispara una vez se hayan visitado todas las ciudades.
+; Se borran las variables temporales y se acaba con la ejecución del ciclo.
 (defrule RepararCiclos::Finalizar
       ?ciudades <- (lista (estado ciudades-actual)(datos 0))
       ?ruta <- (ruta)
