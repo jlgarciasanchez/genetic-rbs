@@ -25,6 +25,11 @@
         (slot n)
 )
 
+; Plantilla que se utiliza para almacenar los datos de un iterador auxiliar.
+(deftemplate iter
+        (slot n)
+)
+
 ; Plantilla que se utiliza para el contador de hijos generados en cada iteración.
 (deftemplate nHijos
         (slot n)
@@ -36,7 +41,23 @@
 (defrule Inicio
         ?inicio <- (inicio)
         =>
-        (assert (iteracion (n 0)))
         (retract ?inicio)
+        (assert (iteracion (n 0)))   
+        (assert (evaluacion))
         (focus Inicializacion)
+)
+
+; Regla que inicializa el contador de hijos e invoca al módulo de evaluación.
+; Se dispara si no se ha alcanzado el máximo de iteraciones.
+(defrule Evaluacion
+        (nIteraciones ?n)
+        ?evaluacion <- (evaluacion)
+        ?it <- (iteracion (n ?i))
+        (test (< ?i ?n))
+        =>
+        (retract ?evaluacion)
+        (assert (seleccion))
+        (assert (nHijos (n 0)))
+        (modify ?it (n (+ ?i 1)))
+        (focus Evaluacion)
 )

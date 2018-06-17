@@ -7,13 +7,6 @@
 
 ;============================================================================
 
-; Plantilla que se utiliza para almacenar los datos de un iterador.
-(deftemplate CruceSCC::iter
-        (slot n)
-)
-
-;============================================================================
-
 ; Regla que crea una lista vacía para el hijo-actual, inicializa el iterador,
 ; crea una copia de la lista de ciudades a visitar y inicializa el tamaño de los
 ; trozos con un valor aleatorio entre 1 y p/2.
@@ -35,7 +28,7 @@
         ?iter <- (iter (n ?i))
         (tamanyo-trozos ?tt)
         ?padrePar <- (lista (estado padre-par)(datos $? / ?i ?j $?))
-        (test (= (mod (div ?i ?tt) 2) 0))
+        (test (eq (mod (div ?i ?tt) 2) 0))
         =>
         (assert (dupla ?i ?j))
         (modify ?iter (n (+ ?i 1)))
@@ -48,7 +41,7 @@
         ?iter <- (iter (n ?i))
         (tamanyo-trozos ?tt)
         ?padreImpar <- (lista (estado padre-impar)(datos $? / ?i ?j $?))
-        (test (= (mod (div ?i ?tt) 2) 1))
+        (test (eq (mod (div ?i ?tt) 2) 1))
         =>
         (assert (dupla ?i ?j))
         (modify ?iter (n (+ ?i 1)))
@@ -58,8 +51,7 @@
 (defrule CruceSCC::Insertar-elemento
         ?dupla<-(dupla ?i ?j)
         ?hijo <- (lista (estado hijo-actual)(datos $?datos))
-        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
-        (test (eq ?j ?ciudad))
+        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?j $?der))
         =>
         (modify ?hijo (datos $?datos / ?i ?j))
         (modify ?ciudades (datos $?izq $?der))
@@ -70,11 +62,10 @@
 ; Añade en la posición i una ciudad aleatoria sin visitar.
 (defrule CruceSCC::Insertar-elemento-aleatorio
         ?dupla<-(dupla ?i ?j)
-        ?hijo <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?der2))
+        ?hijo <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j $?der2))
         ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
-        (test (eq ?j ?j2))
         =>
-        (modify ?hijo (datos $?izq2 / ?i2 ?j2 $?der2 / ?i ?ciudad))
+        (modify ?hijo (datos $?izq2 / ?i2 ?j $?der2 / ?i ?ciudad))
         (modify ?ciudades (datos $?izq $?der))
         (retract ?dupla)
 )
@@ -82,9 +73,8 @@
 ; Una vez se hayan visitado todas las ciudades se llama al módulo RepararCiclos para romper posibles ciclos.
 (defrule CruceSCC::Romper-ciclo
         (not (dupla ? ?))
-        (p ?p)
+        (p ?i)
         ?iter <- (iter (n ?i))
-        (test (eq ?p ?i))
         ?ciudades <- (lista (estado ciudades-actual))
         =>
         (retract ?iter)

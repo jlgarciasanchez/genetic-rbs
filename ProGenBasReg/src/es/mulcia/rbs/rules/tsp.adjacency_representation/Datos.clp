@@ -6,7 +6,7 @@
 ;============================================================================
 
 (deffacts datos-iniciales
-        (nElementos 1)
+        (nElementos 8)
         (nIteraciones 1)
         (inicio)
         (p 10)

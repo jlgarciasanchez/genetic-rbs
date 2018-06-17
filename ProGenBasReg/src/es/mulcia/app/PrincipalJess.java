@@ -74,17 +74,19 @@ public class PrincipalJess {
     }
     
     public static void adjacencyRepresentation(Rete jess) throws JessException{
-   /* 	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Principal.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Principal.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Datos.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Modulos.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Inicializacion.clp");
     	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-GenerarLista.clp");
     	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-DesordenarLista.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-GenerarListaAdyacencias.clp");
-*/
-    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Prueba.clp");
-    	//jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-ElementoRepetido.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Evaluacion.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-EvaluarMejor.clp");
+
+    	
+ /*   	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Prueba.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-CruceSCC.clp");
-    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-RepararCiclos.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-RepararCiclos.clp"); */
     }
 }

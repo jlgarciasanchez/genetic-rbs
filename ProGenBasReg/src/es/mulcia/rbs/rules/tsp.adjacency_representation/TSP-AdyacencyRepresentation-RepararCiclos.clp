@@ -28,43 +28,35 @@
 ; si no se produce un ciclo. (Volviendo a la posición inicial antes de tiempo)
 (defrule RepararCiclos::Add-ciudad
         (lista (estado hijo-actual)(datos $? / ?i ?j $?))
-        ?ruta <- (ruta (ciudades $?otras ?last))
-        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
-        (test (eq ?i ?last))
-        (test (eq ?j ?ciudad))
+        ?ruta <- (ruta (ciudades $?otras ?i))
+        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?j $?der))
         (test (neq ?j 0))
         =>
-        (modify ?ruta (ciudades $?otras ?last ?j))
+        (modify ?ruta (ciudades $?otras ?i ?j))
         (modify ?ciudades (datos $?izq $?der))
 )
 
 ; Regla que se dispara cuando se produce un ciclo, se intercambia la ciudad actual
 ; por una ciudad sin visitar a la izquierda de la actual y se añade a la ruta.
 (defrule RepararCiclos::Romper-ciclo-izquierda
-        ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?centro / ?i ?j $?der2))
-        ?ruta <- (ruta (ciudades $?otras ?last))
-        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
-        (test (eq ?i ?last))
-        (test (eq ?j 0))
-        (test (eq ?j2 ?ciudad))
+        ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i2 ?j2 $?centro / ?i 0 $?der2))
+        ?ruta <- (ruta (ciudades $?otras ?i))
+        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?j2 $?der))
         =>
-        (modify ?solucion (datos $?izq2 / ?i2 ?j $?centro / ?i ?j2 $?der2))
-        (modify ?ruta (ciudades $?otras ?last ?j2))
+        (modify ?solucion (datos $?izq2 / ?i2 0 $?centro / ?i ?j2 $?der2))
+        (modify ?ruta (ciudades $?otras ?i ?j2))
         (modify ?ciudades (datos $?izq $?der))
 )
 
 ; Regla que se dispara cuando se produce un ciclo, se intercambia la ciudad actual
 ; por una ciudad sin visitar a la derecha de la actual y se añade a la ruta.
 (defrule RepararCiclos::Romper-ciclo-derecha
-        ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i ?j $?centro / ?i2 ?j2 $?der2))
-        ?ruta <- (ruta (ciudades $?otras ?last))
-        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?ciudad $?der))
-        (test (eq ?i ?last))
-        (test (eq ?j 0))
-        (test (eq ?j2 ?ciudad))
+        ?solucion <- (lista (estado hijo-actual)(datos $?izq2 / ?i 0 $?centro / ?i2 ?j2 $?der2))
+        ?ruta <- (ruta (ciudades $?otras ?i))
+        ?ciudades <- (lista (estado ciudades-actual)(datos $?izq ?j2 $?der))
         =>
-        (modify ?solucion (datos $?izq2 / ?i ?j2 $?centro / ?i2 ?j $?der2))
-        (modify ?ruta (ciudades $?otras ?last ?j2))
+        (modify ?solucion (datos $?izq2 / ?i ?j2 $?centro / ?i2 0 $?der2))
+        (modify ?ruta (ciudades $?otras ?i ?j2))
         (modify ?ciudades (datos $?izq $?der))
 )
 

@@ -12,7 +12,7 @@
         (not (it ?))
         =>
         (assert(it 0))
-        (assert (lista (estado mejor)(esfuerzo -1)))
+        (assert (lista (id -2)(estado mejor)(esfuerzo -1)))
         (focus GenerarLista)
 )
 
@@ -36,4 +36,17 @@
         =>
         (modify ?lista (estado actual))
         (focus GenerarListaAdyacencias)
+)
+
+; Regla que elimina el iterador temporal y cambia el estado de la lista ordenada a ciudades.
+(defrule Inicializacion::Finalizar
+        (nElementos ?nE)
+        ?iter <- (it ?nE)
+        ?orde <- (lista (estado ordenada))
+        (not (lista (estado pendiente)))
+        =>
+        (modify  ?orde (estado ciudades))
+        (retract ?iter)
+        (pop-focus)
+
 )
