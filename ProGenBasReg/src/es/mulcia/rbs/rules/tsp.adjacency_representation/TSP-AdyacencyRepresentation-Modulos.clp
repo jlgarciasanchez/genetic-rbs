@@ -24,4 +24,5 @@
 
 (defmodule GenerarListaAdyacencias)
 (defmodule CruceAEC)
+(defmodule CruceSCC)
 (defmodule RepararCiclos)

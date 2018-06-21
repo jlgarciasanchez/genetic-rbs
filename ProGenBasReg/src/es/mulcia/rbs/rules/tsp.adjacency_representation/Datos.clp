@@ -8,8 +8,10 @@
 (deffacts datos-iniciales
         (nElementos 8)
         (nIteraciones 1)
+        (cociente-mutacion 50)
         (inicio)
         (p 10)
+        (SCC)
         (esfuerzo (ciudadA 0) (ciudadB 1) (esfuerzo 10))
         (esfuerzo (ciudadA 0) (ciudadB 2) (esfuerzo 0))
         (esfuerzo (ciudadA 0) (ciudadB 3) (esfuerzo 20))

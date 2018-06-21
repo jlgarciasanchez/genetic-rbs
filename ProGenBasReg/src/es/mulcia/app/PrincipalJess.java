@@ -83,6 +83,14 @@ public class PrincipalJess {
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-GenerarListaAdyacencias.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Evaluacion.clp");
     	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-EvaluarMejor.clp");
+    	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-Seleccion.clp");
+    	jess.batch("es/mulcia/rbs/rules/transportelineal.genetic1/TransporteLineal-Genetic1-SeleccionarPadre.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Cruce.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-CruceAEC.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-CruceSCC.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-RepararCiclos.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-Mutacion.clp");
+    	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/TSP-AdyacencyRepresentation-MutarElemento.clp");
 
     	
  /*   	jess.batch("es/mulcia/rbs/rules/tsp.adjacency_representation/Prueba.clp");

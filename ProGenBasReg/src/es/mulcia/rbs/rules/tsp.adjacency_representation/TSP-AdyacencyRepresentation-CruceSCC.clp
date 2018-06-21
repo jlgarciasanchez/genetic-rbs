@@ -14,9 +14,10 @@
         (p ?p)
         (not (lista (estado hijo-actual)))
         ?ciudades <- (lista (estado ciudades))
+        (nHijos (n ?nH))
         =>
         (duplicate ?ciudades (estado ciudades-actual))
-        (assert (lista (estado hijo-actual)))
+        (assert (lista (id ?nH)(esfuerzo 0)(estado hijo-actual)))
         (assert (tamanyo-trozos (+ (mod (random) (/ ?p 2)) 1)))
         (assert (iter (n 0)))
 )
@@ -76,9 +77,10 @@
         (p ?i)
         ?iter <- (iter (n ?i))
         ?ciudades <- (lista (estado ciudades-actual))
+        ?tt <- (tamanyo-trozos ?)
         =>
         (retract ?iter)
         (retract ?ciudades)
+        (retract ?tt)
         (focus RepararCiclos)
-
 )

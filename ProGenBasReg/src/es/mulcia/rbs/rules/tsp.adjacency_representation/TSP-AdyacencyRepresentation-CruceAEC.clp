@@ -12,9 +12,10 @@
 (defrule CruceAEC::Inicio
         (not (lista (estado hijo-actual)))
         ?ciudades <- (lista (estado ciudades))
+        (nHijos (n ?nH))
         =>
         (duplicate ?ciudades (estado ciudades-actual))
-        (assert (lista (estado hijo-actual)))
+        (assert (lista (id ?nH)(esfuerzo 0)(estado hijo-actual)))
         (assert (iter (n 0)))
 )
 
