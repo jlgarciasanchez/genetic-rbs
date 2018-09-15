@@ -1,15 +1,13 @@
-; TSP-AdyacencyRepresentation-CruceSCC.clp
+; TSP-AdyacencyRepresentation-CruceHC.clp
 ; Problema del Viajante
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
 ; José Luis García Sánchez
 ; Universidad de Sevilla
-
 ;============================================================================
 
 ; Regla que crea una lista vacía para el hijo-actual, inicializa el iterador,
-; crea una copia de la lista de ciudades a visitar y inicializa el tamaño de los
-; trozos con un valor aleatorio entre 1 y p/2.
+; crea una copia de la lista de ciudades a visitar.
 (defrule CruceHC::Inicio
         (not (lista (estado hijo-actual)))
         ?ciudades <- (lista (estado ciudades))
@@ -20,6 +18,8 @@
         (assert (iter (n 0)))
 )
 
+; Regla que calcula los esfuerzos de los primeros elementos de la lista.
+; Se dispara si existen los caminos i-par j-par y i-impar j-impar.
 (defrule CruceHC::Calcular-esfuerzos-ijij
         (not (dupla $?))
         ?iter <- (iter (n ?i))
@@ -32,6 +32,8 @@
         (assert (esfuerzo-impar ?esfuerzo-impar))
 )
 
+; Regla que calcula los esfuerzos de los primeros elementos de la lista.
+; Se dispara si existen los caminos i-par j-par y j-impar i-impar.
 (defrule CruceHC::Calcular-esfuerzos-ijji
         (not (dupla $?))
         ?iter <- (iter (n ?i))
@@ -44,6 +46,8 @@
         (assert (esfuerzo-impar ?esfuerzo-impar))
 )
 
+; Regla que calcula los esfuerzos de los primeros elementos de la lista.
+; Se dispara si existen los caminos j-par i-par y i-impar j-impar.
 (defrule CruceHC::Calcular-esfuerzos-jiij
         (not (dupla $?))
         ?iter <- (iter (n ?i))
@@ -56,6 +60,8 @@
         (assert (esfuerzo-impar ?esfuerzo-impar))
 )
 
+; Regla que calcula los esfuerzos de los primeros elementos de la lista.
+; Se dispara si existen los caminos j-par i-par y j-impar i-impar.
 (defrule CruceHC::Calcular-esfuerzos-jiji
         (not (dupla $?))
         ?iter <- (iter (n ?i))
@@ -68,6 +74,8 @@
         (assert (esfuerzo-impar ?esfuerzo-impar))
 )
 
+; Regla que almacena las duplas i j de los padres.
+; Se dispara si el del padre par es menor.
 (defrule CruceHC::Par-menor
         ?par <- (esfuerzo-par ?esfuerzo-par)
         ?impar <- (esfuerzo-impar ?esfuerzo-impar)
@@ -83,6 +91,8 @@
         (retract ?impar)
 )
 
+; Regla que almacena las duplas i j de los padres.
+; Se dispara si el del padre impar es menor o igual.
 (defrule CruceHC::Impar-menor
         ?par <- (esfuerzo-par ?esfuerzo-par)
         ?impar <- (esfuerzo-impar ?esfuerzo-impar)
@@ -98,7 +108,8 @@
         (retract ?impar)
 )
 
-; Regla que se dispara si el elemento j no ha sido visitado. Añade la dupla i j a la lista.
+; Regla que se dispara si el elemento j del mejor no ha sido visitado.
+; Añade la dupla i j-mejor a la lista.
 (defrule CruceHC::Insertar-elemento
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?)
@@ -111,7 +122,8 @@
         (retract ?peor)
 )
 
-
+; Regla que se dispara si el elemento j del mejor ha sido visitado y el elemento j del peor no.
+; Añade la dupla i j-peor a la lista.
 (defrule CruceHC::Insertar-otro-elemento
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?j2)
@@ -124,6 +136,8 @@
         (retract ?peor)
 )
 
+; Regla que se dispara si los elementos j de los dos padres han sido visitados
+; y el del mejor está a la ziquierda. Añade la dupla i j-peor a la lista.
 (defrule CruceHC::Insertar-aleatorio-A
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?j2)
@@ -134,6 +148,8 @@
         (retract ?peor)
 )
 
+; Regla que se dispara si los elementos j de los dos padres han sido visitados
+; y el del mejor está a la derecha. Añade la dupla i j-peor a la lista.
 (defrule CruceHC::Insertar-aleatorio-B
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?j2)
@@ -144,6 +160,7 @@
         (retract ?peor)
 )
 
+; Una vez se hayan visitado todas las ciudades se llama al módulo RepararCiclos para romper posibles ciclos.
 (defrule CruceHC::Romper-ciclo
         (not (dupla ? ?))
         (p ?i)

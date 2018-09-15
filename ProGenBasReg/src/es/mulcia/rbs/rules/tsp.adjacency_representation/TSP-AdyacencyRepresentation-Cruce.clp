@@ -44,6 +44,17 @@
         (focus CruceSCC)
 )
 
+; Regla que llama al módulo CruceHC.
+; Se dispara cuando están los dos padres y el hecho HC.
+(defrule Cruce::Cruce-HC
+        (lista (estado padre-par))
+        (lista (estado padre-impar))
+        (not (lista (estado hijo-actual)))
+        (HC)
+        =>
+        (focus CruceHC)
+)
+
 ; Regla que invierte a los padres, renombra al primer hijo, actualiza el contador de hijos y llama al módulo CruceAEC.
 ; Se dispara cuando están los dos padres, un hijo y el hecho AEC.
 (defrule Cruce::Segundo-cruce-AEC
@@ -74,6 +85,22 @@
         (modify ?impar (estado padre-par))
         (modify ?hijo (estado primer-hijo))
         (focus CruceSCC)
+)
+
+; Regla que invierte a los padres, renombra al primer hijo, actualiza el contador de hijos y llama al módulo CruceHC.
+; Se dispara cuando están los dos padres, un hijo y el hecho HC.
+(defrule Cruce::Segundo-cruce-HC
+        ?hijos <- (nHijos (n ?h))
+        ?par <- (lista (estado padre-par))
+        ?impar <- (lista (estado padre-impar))
+        ?hijo <- (lista (estado hijo-actual))
+        (HC)
+        =>
+        (modify ?hijos (n (+ ?h 1)))
+        (modify ?par (estado padre-impar))
+        (modify ?impar (estado padre-par))
+        (modify ?hijo (estado primer-hijo))
+        (focus CruceHC)
 )
 
 ; Regla que cambia el estado de padres e hijos y actualiza el contador de hijos.

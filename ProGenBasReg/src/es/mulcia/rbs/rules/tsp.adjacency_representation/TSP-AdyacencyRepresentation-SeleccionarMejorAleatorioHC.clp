@@ -4,9 +4,9 @@
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
 ; José Luis García Sánchez
 ; Universidad de Sevilla
-
 ;============================================================================
 
+; Regla que si no existe ningún camino más cercano elige uno al azar.
 (defrule SeleccionarMejorAleatorioHC::Inicio
         (not (mejor ? ?))
         (lista (estado subgrupo)(datos $? / ?newj ?newesf $?))
@@ -15,6 +15,7 @@
         (assert (mejor ?newj ?newesf))
 )
 
+; Regla que selecciona un camino más corto que el más corto encontrado.
 (defrule SeleccionarMejorAleatorioHC::SeleccionarMejorAleatorio
         ?mejor <- (mejor ?j ?esfuerzo)
         (lista (estado subgrupo)(datos $? / ?newj ?newesf $?))

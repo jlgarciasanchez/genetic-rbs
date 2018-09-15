@@ -4,7 +4,6 @@
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
 ; José Luis García Sánchez
 ; Universidad de Sevilla
-
 ;============================================================================
 
 ; Regla que crea una lista vacía para el hijo-actual, inicializa el iterador y
@@ -76,5 +75,4 @@
         (retract ?iter)
         (retract ?ciudades)
         (focus RepararCiclos)
-
 )

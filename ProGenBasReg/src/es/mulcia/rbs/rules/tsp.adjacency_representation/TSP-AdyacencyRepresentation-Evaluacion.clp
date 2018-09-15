@@ -6,11 +6,11 @@
 ; Universidad de Sevilla
 ;============================================================================
 
-; Regla que selecciona una lista con estado adyacente y la marca como evaluando.
+; Regla que selecciona una lista con estado preparada y la marca como evaluando.
 ; Inicializa el iterador a 0.
 (defrule Evaluacion::Seleccionar-lista
         (not (lista (estado evaluando)))
-        ?list <- (lista (estado adyacente))
+        ?list <- (lista (estado preparada))
         =>
         (modify ?list (estado evaluando))
         (assert (iter (n 0)))
@@ -41,7 +41,7 @@
 (defrule Evaluacion::Fin-evaluar-lista
         (p ?p)
         ?iter <- (iter (n ?p))
-        ?list <- (lista (estado ?evaluando))
+        ?list <- (lista (estado evaluando))
         =>
         (modify ?list(estado evaluada))
         (retract ?iter)
@@ -50,7 +50,7 @@
 ; Regla que se dispara cuando se han evaluado todas las listas.
 ; Se invoca al mòdulo EvaluarMejor.
 (defrule Evaluacion::Evaluar-mejor
-        (not (lista (estado adyacente)))
+        (not (lista (estado preparada)))
         =>
         (focus EvaluarMejor)
 )

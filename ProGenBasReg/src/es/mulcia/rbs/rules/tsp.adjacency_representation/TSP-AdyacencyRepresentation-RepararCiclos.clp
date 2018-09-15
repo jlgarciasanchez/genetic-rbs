@@ -4,7 +4,6 @@
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
 ; José Luis García Sánchez
 ; Universidad de Sevilla
-
 ;============================================================================
 
 ; Plantilla que se utiliza para almacenar los datos de la ruta del viajante.

@@ -6,11 +6,6 @@
 ;============================================================================
 
 (deffacts datos-iniciales
-        (nElementos 2)
-        (nIteraciones 1)
-        (cociente-mutacion 100)
-        (tamanyo-mutacion 3)
-        (inicio)
         (n 3)
         (k 4)
         (fuente (id 0) (mercancia-total 15)(mercancia-actual 0))

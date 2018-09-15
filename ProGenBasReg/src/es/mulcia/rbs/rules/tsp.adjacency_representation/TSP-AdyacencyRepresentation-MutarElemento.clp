@@ -41,7 +41,7 @@
         (focus RepararCiclos)
 )
 
-; Regla que se dispara si aleatorioA es igual a aleatorioB. Se modifica el estado de la lista a adyacente.
+; Regla que se dispara si aleatorioA es igual a aleatorioB. Se modifica el estado de la lista a preparada.
 (defrule MutarElemento::Mutar-igual
         ?aleatorioA <- (aleatorioA ?igual)
         ?aleatorioB <- (aleatorioB ?igual)
@@ -49,14 +49,14 @@
         =>
         (retract ?aleatorioA)
         (retract ?aleatorioB)
-        (modify ?list (estado adyacente))
+        (modify ?list (estado preparada))
 )
 
-; Regla que cambia la lista de estado hijo-actual a adyacente.
+; Regla que cambia la lista de estado hijo-actual a preparada.
 (defrule MutarElemento::Cambiar-estado
         ?list <- (lista (estado hijo-actual))
         =>
-        (modify ?list (estado adyacente))
+        (modify ?list (estado preparada))
 )
 
 ; Regla que se dispara cuando ya se ha modificado la lista. Se pone fin a la ejecución del módulo.

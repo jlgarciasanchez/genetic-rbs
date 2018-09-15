@@ -31,7 +31,7 @@ TSP-AdyacencyRepresentation-Mutacion.clp
         =>
         (retract ?aleatorio)
         (assert (aleatorio (mod (random) 100)))
-        (modify ?list (estado adyacente))
+        (modify ?list (estado preparada))
 )
 
 ; Regla que se dispara cuando el cociente de mutación es menor que el número aleatorio.

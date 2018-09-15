@@ -33,7 +33,7 @@
          (retract ?list)
          (modify ?temp (datos $?datos ?i 0))
          (assert (iter (n 1)))
-         (assert (lista (id ?id)(estado adyacente)(esfuerzo 0)(datos / 0 ?j)))
+         (assert (lista (id ?id)(estado preparada)(esfuerzo 0)(datos / 0 ?j)))
 )
 
 ; Lista que va añadiendo a la lista ordenada los elementos del a lista temporal
@@ -41,7 +41,7 @@
 (defrule GenerarListaAdyacencias::Ordenar
         ?iter <- (iter (n ?it))
         ?temp <- (lista (estado temp)(datos $?izq / ?it ?j $?der))
-        ?orde <- (lista (estado adyacente)(datos $?datos))
+        ?orde <- (lista (estado preparada)(datos $?datos))
         =>
         (modify ?temp (datos $?izq $?der))
         (modify ?orde (datos ?datos / ?it ?j))

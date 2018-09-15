@@ -1,4 +1,4 @@
-; TransporteLineal-Genetic2-Inicializacion.clp
+; TSP-OrdinalRepresentation-Inicializacion.clp
 ; Problema Lineal del Transporte
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
@@ -28,23 +28,31 @@
         (focus DesordenarLista)
 )
 
-; Regla que marca una lista como actual e invoca al módulo GenerarListaAdyacencias
-; para convertir la lista en la representación por adyacencias.
-(defrule Inicializacion::Generar-lista-adyacencias
-        ?lista <- (lista (estado pendiente))
-        =>
-        (modify ?lista (estado actual))
-        (focus GenerarListaAdyacencias)
-)
-
-; Regla que elimina el iterador temporal y cambia el estado de la lista ordenada a ciudades.
-(defrule Inicializacion::Finalizar
+; Regla que cambia el estado de la lista ordenada a ciudades.
+(defrule Inicializacion::Guardar-ciudades
         (nElementos ?nE)
         ?iter <- (it ?nE)
         ?orde <- (lista (estado ordenada))
-        (not (lista (estado pendiente)))
         =>
         (modify  ?orde (estado ciudades))
+)
+
+; Regla que marca una lista como actual e invoca al módulo GenerarListaOrdinal
+; para convertir la lista en la representación ordinal.
+(defrule Inicializacion::Generar-lista-ordinal
+        ?lista <- (lista (estado pendiente))
+        (lista (estado ciudades))
+        =>
+        (modify ?lista (estado actual))
+        (focus GenerarListaOrdinal)
+)
+
+; Regla que elimina el iterador temporal y pone fin a la ejecución del módulo.
+(defrule Inicializacion::Finalizar
+        (nElementos ?nE)
+        ?iter <- (it ?nE)
+        (not (lista (estado pendiente)))
+        =>
         (retract ?iter)
         (pop-focus)
 )
