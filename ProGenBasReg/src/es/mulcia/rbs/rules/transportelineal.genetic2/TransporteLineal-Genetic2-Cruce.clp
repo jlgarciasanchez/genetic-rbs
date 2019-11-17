@@ -65,7 +65,7 @@
 )
 
 ; Regla que modifica las filas para volver a poner el estado de los datos a E.
-(defrule Cruce::Reiniar-padres
+(defrule Cruce::Reiniciar-padres
         (solucion (estado hijo0))
         ?fila <- (fila (datos $?der / ?columna ?cantidad R $?izq))
         =>

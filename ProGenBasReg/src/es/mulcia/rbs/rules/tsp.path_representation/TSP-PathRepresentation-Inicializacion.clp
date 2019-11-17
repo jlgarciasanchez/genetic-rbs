@@ -1,4 +1,4 @@
-; TSP-AdyacencyRepresentation-Inicializacion.clp
+; TSP-PathRepresentation-Inicializacion.clp
 ; Problema Lineal del Transporte
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
@@ -28,23 +28,21 @@
         (focus DesordenarLista)
 )
 
-; Regla que marca una lista como actual e invoca al módulo GenerarListaAdyacencias
-; para convertir la lista en la representación por adyacencias.
-(defrule Inicializacion::Generar-lista-adyacencias
-        ?lista <- (lista (estado pendiente))
+; Regla que cambia el estado de una lista de pendiente a preparada y coloca el 0 en la primera posición.
+(defrule Inicializacion::Cambiar-inicio
+        ?lista <- (lista (estado pendiente)(datos $?izq 0 $?der))
         =>
-        (modify ?lista (estado actual))
-        (focus GenerarListaAdyacencias)
+        (modify ?lista (estado preparada)(datos 0 $?izq $?der))
 )
 
-; Regla que elimina el iterador temporal y cambia el estado de la lista ordenada a ciudades.
+; Regla que elimina el iterador temporal y pone fin a la ejecución del módulo.
 (defrule Inicializacion::Finalizar
         (nElementos ?nE)
         ?iter <- (it ?nE)
-        ?orde <- (lista (estado ordenada))
+        ?list <- (lista (estado ordenada))
         (not (lista (estado pendiente)))
         =>
-        (modify  ?orde (estado ciudades))
         (retract ?iter)
+        (retract ?list)
         (pop-focus)
 )

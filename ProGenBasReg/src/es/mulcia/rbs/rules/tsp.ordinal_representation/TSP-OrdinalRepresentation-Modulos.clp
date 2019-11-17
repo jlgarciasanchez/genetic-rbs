@@ -18,3 +18,8 @@
 (defmodule CruzarPadres)
 (defmodule Mutacion)
 (defmodule MutarElemento)
+
+(defmodule CruceCentro)
+(defmodule CrucePMX)
+(defmodule CruceCX)
+(defmodule CruceOX)

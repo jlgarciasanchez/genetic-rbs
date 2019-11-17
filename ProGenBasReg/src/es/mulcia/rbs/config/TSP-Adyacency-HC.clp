@@ -6,10 +6,10 @@
 ;============================================================================
 
 (deffacts datos-iniciales
-        (nElementos 8)
-        (nIteraciones 1)
-        (cociente-mutacion 50)
-        (tamanyo-minimo-cruce 3)
-        (SCC)
+        (nElementos 2)
+        (nIteraciones 5)
+        (cociente-mutacion 70)
+        (tamanyo-subgrupo 2)
+        (HC)
         (inicio)
 )

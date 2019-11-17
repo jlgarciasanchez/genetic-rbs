@@ -121,9 +121,9 @@
 ; Regla que elimina todas las listas de la población menos la mejor.
 (defrule Borrar-listas
         ?list <- (lista (estado evaluada))
-        (final)
+       (final)
         =>
-        (retract ?list)
+       (retract ?list)
 )
 
 ; Regla que pone fin a la ejecución del algoritmo.

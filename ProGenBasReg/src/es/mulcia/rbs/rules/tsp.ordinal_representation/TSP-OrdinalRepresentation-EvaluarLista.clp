@@ -8,7 +8,7 @@
 
 ; Regla que crea una copia de la lista actual y de las ciudades sin el primer elemento.
 ; Y coloca el origen con el valor del primer elemento. El primer elemenot siempre será 0.
-(defrule EvaluarLista::Inicializar
+(defrule EvaluarLista::Inicio
         (not (origen ?))
         ?list <- (lista (estado actual)(datos 0 $?datos))
         ?ciu <- (lista (estado ciudades) (datos 0 $?ciudades))
@@ -47,7 +47,7 @@
 ; La siguiente ciudad a visitar es la primera de la copia de la copia de ciudades.
 ; Se suma al esfuerzo de la lista el esfuerzo de ir del origen a la siguiente ciudad.
 ; Se elimina esta ciudad de la copia de ciudades y se fija como nuevo origen.
-; Se eliminan el iterador, la copia de a copia de ciudades, el elemento y el antiguo origne.
+; Se eliminan el iterador, la copia de a copia de ciudades, el elemento y el antiguo origen.
 (defrule EvaluarLista::Calcular-esfuerzo-ij
         ?ciudadesiter <- (lista (estado ciudades-iteracion-actual) (datos ?j $?otras))
         ?iter <- (iter (n ?n))
@@ -70,7 +70,7 @@
 ; La siguiente ciudad a visitar es la primera de la copia de la copia de ciudades.
 ; Se suma al esfuerzo de la lista el esfuerzo de ir de la siguiente ciudad al origen.
 ; Se elimina esta ciudad de la copia de ciudades y se fija como nuevo origen.
-; Se eliminan el iterador, la copia de a copia de ciudades, el elemento y el antiguo origne.
+; Se eliminan el iterador, la copia de a copia de ciudades, el elemento y el antiguo origen.
 (defrule EvaluarLista::Calcular-esfuerzo-ji
         ?ciudadesiter <- (lista (estado ciudades-iteracion-actual) (datos ?j $?otras))
         ?iter <- (iter (n ?n))

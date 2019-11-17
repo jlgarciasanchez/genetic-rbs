@@ -7,7 +7,7 @@
 ;============================================================================
 
 ; Regla que crea un pivote con un númro aleatorio entre el tamaño mínimo va a tener cada trozo
-; y el número toal de elemenots - ese tamaño mínimo. Además inicializa la lista del hijo, el iterador
+; y el número total de elementos menos ese tamaño mínimo. Además inicializa la lista del hijo, el iterador
 ; y crea una copia de los padres.
 (defrule CruzarPadres::Inicializacion
         (p ?p)

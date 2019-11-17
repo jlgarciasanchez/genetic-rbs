@@ -137,11 +137,11 @@
 )
 
 ; Regla que se dispara si los elementos j de los dos padres han sido visitados
-; y el del mejor está a la ziquierda. Añade la dupla i j-peor a la lista.
+; y el del mejor está a la ziquierda. Invoca al módulo SeleccionarAleatorioHC.
 (defrule CruceHC::Insertar-aleatorio-A
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?j2)
-        ?hijo <- (lista (estado hijo-actual)(datos $?datos-izq / ?i2 ?j $?datos-centro / ?i3 ?j2 $?datos-der))
+        ?hijo <- (lista (estado hijo-actual)(datos $?datos-izq / ? ?j $?datos-centro / ? ?j2 $?datos-der))
         =>
         (focus SeleccionarAleatorioHC)
         (retract ?dupla)
@@ -149,11 +149,23 @@
 )
 
 ; Regla que se dispara si los elementos j de los dos padres han sido visitados
-; y el del mejor está a la derecha. Añade la dupla i j-peor a la lista.
+; y el del mejor está a la derecha. Invoca al módulo SeleccionarAleatorioHC.
 (defrule CruceHC::Insertar-aleatorio-B
         ?dupla<-(dupla ?i ?j)
         ?peor <-(dupla-peor ?i ?j2)
-        ?hijo <- (lista (estado hijo-actual)(datos $?datos-izq / ?i2 ?j2 $?datos-centro / ?i3 ?j $?datos-der))
+        ?hijo <- (lista (estado hijo-actual)(datos $?datos-izq / ? ?j2 $?datos-centro / ? ?j $?datos-der))
+        =>
+        (focus SeleccionarAleatorioHC)
+        (retract ?dupla)
+        (retract ?peor)
+)
+
+; Regla que se dispara si los elementos j de los dos padres son iguales y ya han sido vistados. 
+; Invoca al módulo SeleccionarAleatorioHC.
+(defrule CruceHC::Insertar-aleatorio-C
+        ?dupla<-(dupla ?i ?j)
+        ?peor <-(dupla-peor ?i ?j)
+        ?hijo <- (lista (estado hijo-actual)(datos $?datos-izq  / ? ?j $?datos-der))
         =>
         (focus SeleccionarAleatorioHC)
         (retract ?dupla)

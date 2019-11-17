@@ -20,7 +20,7 @@
         ?ciudades <- (lista (estado ciudades-actual))
         =>
         (assert (iter2 (n 0)))
-        (assert (lista (estado subgrupo)))
+        (assert (lista (id -3)(estado subgrupo)))
         (duplicate ?ciudades (estado ciudades-candidatas))
 )
 

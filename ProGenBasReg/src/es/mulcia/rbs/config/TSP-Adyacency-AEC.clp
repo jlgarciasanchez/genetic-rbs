@@ -5,10 +5,10 @@
 ; Universidad de Sevilla
 ;============================================================================
 
-(deffacts config
-        (nElementos 8)
+(deffacts datos-iniciales
+        (nElementos 2)
         (nIteraciones 5)
-        (cociente-mutacion 75)
-        (tamanyo-mutacion 2)
+        (cociente-mutacion 70)
+        (AEC)
         (inicio)
 )

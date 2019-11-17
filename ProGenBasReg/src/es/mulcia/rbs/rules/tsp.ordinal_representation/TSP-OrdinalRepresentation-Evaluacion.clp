@@ -8,16 +8,15 @@
 
 ; Regla que selecciona una lista con estado preparada y la marca como evaluando.
 ; Inicializa el iterador a 0.
-(defrule Evaluacion::Seleccionar-lista
+(defrule Evaluacion::Evaluar-lista
         ?list <- (lista (estado preparada))
         =>
         (modify ?list (estado actual))
-        (assert (iter (n 0)))
         (focus EvaluarLista)
 )
 
 ; Regla que se dispara cuando se han evaluado todas las listas.
-; Se invoca al mòdulo EvaluarMejor.
+; Se invoca al módulo EvaluarMejor.
 (defrule Evaluacion::Evaluar-mejor
         (not (lista (estado preparada)))
         =>

@@ -1,5 +1,5 @@
-; TransporteLineal-Genetic1-MutarElemento.clp
-; Problema Lineal del Transporte
+; TSP-OrdinalRepresentation-MutarElemento.clp
+; Problema del Viajante
 ; Programación Genética Basada en Reglas
 ; Master Universitario en Lógica Programación e Inteligencia Artificial
 ; José Luis García Sánchez
@@ -13,7 +13,7 @@
 
 ;============================================================================
 
-; Regla que genera dos números aleatorios entre 0 y p-1.
+; Regla que genera dos números aleatorios entre 1 y p-1.
 ; E inicializa un iterador.
 (defrule MutarElemento::Inicio
         (p ?p)
@@ -21,10 +21,10 @@
         =>
         (assert (listaTemp))
         (assert (iter (n 0)))
-        (assert (aleatorioA (mod (random) ?p)))
+        (assert (aleatorioA (+ (mod (random) (- ?p 1))1)))
 )
 
-; Regla que genera dos números aleatorios entre 0 y p-a.
+; Regla que genera dos números aleatorios entre 0 y p-a-1.
 (defrule MutarElemento::Generar-segundo-aleatorio
         (p ?p)
         (aleatorioA ?a)
